@@ -1,19 +1,44 @@
 const express = require("express")
-const {body, validationResult} = require("express-validator")
+const {body, check,validationResult} = require("express-validator")
 const router = express.Router()
 const multer = require("multer")
+
+router.use(express.urlencoded({
+    extended:true
+}))
 
 // router.post('/login', (req,res)=>{
 
 // })
 
+router.post('/register', multer().none(), 
+[
+    //* sprawdzanie danych przeslanych przez formularz
+    check("registerEmail", "Niepoprawny format Email").isEmail(),
+    check("registerPassword", "Za slabe haslo").custom((value,{req})=>{
+        if(value !== req.body.registerPasswordConfirm){
+            throw new Error("Hasla nie pasuja") 
+        }else {
+            return value
+        }
+    })//! .isStrongPassword() trzeba to odchaczyc kiedy bedzie w sieci
+    ,check("registerInvitationCode", "Niepoprawny format kodu zaproszenia").isInt()
+],
+(req,res)=>{
+    //* Stworzenie validatora ktory zwraca tylko wiadomosc
+    const myValidationResult = validationResult.withDefaults({
+        formatter: error =>{
+            return {
+                msg: error.msg
+            }
+        }
+    })
 
-router.post('/register', multer().none() ,(req,res)=>{
+    const message = myValidationResult(req)
 
-    console.log(JSON.stringify(req.body))
-    res.status(400)
-    res.send("blablabla")
-    res.end()
+    if(!message.isEmpty()) return res.status(400).json({errors: message.array()})
+
+    res.status(200).json({msg: "Zarejestrowano"}).end()
 })
 
 module.exports = router
