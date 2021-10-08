@@ -3,7 +3,7 @@ const http = require("http")
 const https = require("https")
 const expressSession = require("express-session")
 const path = require("path")
-const {stringDecompse} = require("./functions")
+const {stringDecompse} = require("./modules/functions")
 require("dotenv").config()
 
 const app = express()
