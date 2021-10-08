@@ -30,3 +30,22 @@
         <a href="/forgotPassword">Zapomniales hasla?</a>
     </div>
 </div>
+
+<script>
+    let registerForm = document.querySelector("#Register>form")
+    registerForm.addEventListener("submit", e=>{
+        e.preventDefault()
+        let formData = new FormData(registerForm)
+        
+        fetch("/loginRegisterForms/register", {
+            method: "POST",
+            credentials: "same-origin",
+            body: formData
+        }).then(res=>{
+            console.log(res)
+        }).catch(err=>{
+            console.log(err)
+            console.log(err)
+        })
+    })
+</script>
