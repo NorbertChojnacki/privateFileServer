@@ -49,4 +49,22 @@
             console.log(err)
         })
     })
+
+    let loginForm = document.querySelector("#Login>form")
+    loginForm.addEventListener("submit", e=>{
+        e.preventDefault()
+        let formData = new FormData(loginForm)
+
+        fetch("/loginRegisterForms/login", {
+            method: "POST",
+            credentials: "same-origin",
+            body: formData
+        }).then(res=>{
+            res.json().then(val=>{
+                console.log(val)
+            })
+        }).catch(err=>{
+            console.log(err)
+        })
+    })
 </script>
