@@ -7,9 +7,11 @@ router.use(express.urlencoded({
     extended:true
 }))
 
-// router.post('/login', (req,res)=>{
-
-// })
+router.post('/login', multer().none(),[
+    check("loginEmail", "Niepoprawny format email").isEmail()
+], (req,res)=>{
+    res.status(200).json({msg:"Zalogowano"})
+})
 
 router.post('/register', multer().none(), 
 [
@@ -22,7 +24,8 @@ router.post('/register', multer().none(),
             return value
         }
     })//! .isStrongPassword() trzeba to odchaczyc kiedy bedzie w sieci
-    ,check("registerInvitationCode", "Niepoprawny format kodu zaproszenia").isInt()
+    ,check("registerInvitationCode", "Niepoprawny format kodu zaproszenia").isInt(),
+    body("registerEmail").normalizeEmail()
 ],
 (req,res)=>{
     //* Stworzenie validatora ktory zwraca tylko wiadomosc
