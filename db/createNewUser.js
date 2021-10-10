@@ -16,21 +16,20 @@ async function checkUserExist(email){
  * 
  * @param {String} email 
  * @param {String} password
- * @returns {Promise} Object
+ * @returns {Promise} Object 
  */
 async function createNewUser(email, password){
     try{
-        Promise.all([await checkUserExist(email), require("../modules/passwordHashing")(password)]).then(ret=>{
-            if(ret[0]){
-                let sql = conn.query(`INSERT INTO user (email, password) VALUES ('${email}','${ret[1]}')`)
-                sql.then(res=>{
-                    result.addRes(res)
-                })
-            }else{
-                throw new Error("userExist")
-            }
-        })
-        
+        let a = await checkUserExist(email)
+        if(a){
+            require("../modules/passwordHashing")(password).then(val=>{
+                let sql = conn.query(`INSERT INTO user (email, password) VALUES ('${email}','${val}')`)
+                result.addRes(sql)
+            })
+            
+        }else{
+            throw new Error("userExist")
+        }
     }catch(err){
         result.addErr()
         result.addRes({status: "error", msg: err.message === "userExist"? "Uzytkownik o podanym email juz istnieje" :"Blad zapytania dodawania nowego uzytkownika"})
