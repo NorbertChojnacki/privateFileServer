@@ -1,29 +1,32 @@
 /** Klasa ulatwiajaca prace na zapytaniach do bazy danych */
 class dbRequestClass{
-    status = {
-        error:[],
-        result: []
+    info = {
+        result: [],
+        errorNum: 0
     }
     /**
      * 
      * @returns {Boolean} 
      */
     isError(){
-        return this.status.error.length == 0 ? false : true
+        return this.info.errorNum > 0 ? false : true
     }
 
-    /**
-     * 
-     * @param {Array} err 
-     */
-    addErr(err){
-        this.status.error.push(err)
-    }
     /**
      * 
      * @param {Array} res 
      */
     addRes(res){
-        this.status.result.push(res)
+        this.info.result.push(res)
+    }
+
+    addErr(){
+        this.info.errorNum++
+    }
+
+    showErr(){
+        return this.info.result.filter(err => err.status == "error")
     }
 }
+
+module.exports = dbRequestClass
