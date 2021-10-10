@@ -1,5 +1,5 @@
 const mariadb = require("mariadb")
-const dotenv = require("dotenv").config()
+const dotenv = require("dotenv").config({path: "./.env-local"})
 
 if(dotenv.error){
     throw dotenv.error

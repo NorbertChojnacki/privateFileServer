@@ -1,8 +1,6 @@
 const conn = require("./connection")
 const {join} = require("path")
 const dbRequestClass = require(join(__dirname, "../modules/dbRequestClass"))
-// const checkUserExist = require("./checkUserExists")
-const { check } = require("express-validator")
 
 const result = new dbRequestClass()
 

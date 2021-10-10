@@ -1,6 +1,5 @@
-const { create } = require("domain")
 const express = require("express")
-const {body, check,validationResult} = require("express-validator")
+const {body, check, validationResult} = require("express-validator")
 const router = express.Router()
 const multer = require("multer")
 const {join} = require("path")
