@@ -9,7 +9,7 @@ class dbRequestClass{
      * @returns {Boolean} 
      */
     isError(){
-        return this.info.errorNum > 0 ? false : true
+        return this.info.errorNum > 0 ? true : false
     }
 
     /**

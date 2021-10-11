@@ -4,7 +4,7 @@ const https = require("https")
 const expressSession = require("express-session")
 const path = require("path")
 const {stringDecompse} = require("./modules/functions")
-require("dotenv").config()
+require("dotenv").config({path: "./.env-local"})
 
 const app = express()
 

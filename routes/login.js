@@ -1,6 +1,5 @@
-const { create } = require("domain")
 const express = require("express")
-const {body, check,validationResult} = require("express-validator")
+const {body, check, validationResult} = require("express-validator")
 const router = express.Router()
 const multer = require("multer")
 const {join} = require("path")
@@ -49,11 +48,10 @@ router.post('/register', multer().none(),
         if(result.isError()){
             res.status(200).json(result.showErr()[0])
         } else{
-            res.status(200).json({status: "done", msg: "Zarejestrowano"}).end()
+            res.status(200).json({status: "done", msg: "Zarejestrowano"})
         }
 
     })
-
 })
 
 module.exports = router
