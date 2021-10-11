@@ -1,0 +1,52 @@
+<div id="LoginRegister">
+    <div id="Register">
+        <form method="post">
+            <label for="registerEmail">E-mail:</label>
+                <input type="email" name="registerEmail" class="input"><br>
+
+            <label for="registerPassword">Haslo:</label>
+                <input type="password" name="registerPassword" class="input"><br>
+
+            <label for="registerPasswordConfirm">Potwierdz haslo:</label>
+                <input type="password" name="registerPasswordConfirm" class="input"><br>
+
+            <label for="registerInvitationCode">Kod zaproszenia:</label>
+                <input type="number" name="registerInvitationCode" class="input"><br>
+
+                <input type="submit" name="registerSubmit" value="Zarejestruj" class="submit">
+        </form>
+    </div>
+
+    <div id="Login">
+        <form method="post">
+            <label for="loginEmail">E-mail:</label>
+                <input type="email" name="loginEmail" class="input"><br>
+
+            <label for="loginPassword">Haslo: </label>
+                <input type="password" name="loginPassword" class="input"><br>
+
+                <input type="submit" name="loginSubmit" value="Loguj" class="submit">
+        </form>
+        <a href="/forgotPassword">Zapomniales hasla?</a>
+    </div>
+</div>
+
+<script>
+    let registerForm = document.querySelector("#Register>form")
+    registerForm.addEventListener("submit", e=>{
+        e.preventDefault()
+        let formData = new FormData(registerForm)
+        
+        fetch("/loginRegisterForms/register", {
+            method: "POST",
+            credentials: "same-origin",
+            body: formData
+        }).then(res=>{
+            res.json().then(val=>{
+                console.log(val)
+            })
+        }).catch(err=>{
+            console.log(err)
+        })
+    })
+</script>
